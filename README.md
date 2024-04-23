@@ -24,12 +24,6 @@ Notification:
 - Generates a summary notification of the cleanup process
 - Logs all deleted items for reference
 
-## Installation
-
-1. Download the latest release from the [Releases](https://github.com/wrecks-code/WrecksFileCleaner/releases) page.
-2. Extract the contents of the zip file.
-3. Double-click on the executable file (`WrecksFileCleaner.exe`) to start the application.
-
 ## Configuration
 
 1. Open the `config.ini` file in a text editor.
