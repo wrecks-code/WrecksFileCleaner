@@ -5,7 +5,7 @@ import os
 import re
 from typing import List, Tuple
 
-from wfc.logger import log, INFO
+from wfc.logger import log, INFO, ERROR
 from wfc import popup, config, registry, paths
 
 # TODO: Testmode toggle
@@ -28,9 +28,17 @@ def get_things_to_delete() -> (
     _folder_results = []
 
     for search_path in search_paths:
+        if not os.path.exists(search_path):
+            log(ERROR, f"Path {search_path} not found!")
+
         for item in os.listdir(search_path):
             item_path = os.path.join(search_path, item)
 
+            if (
+                os.path.isdir(item_path)
+                and get_days_since_creation(item_path) > days_until_deletion
+            ):
+                _folder_results.append((item_path, get_size_bytes(item_path), "age"))
             if os.path.isfile(item_path):
                 if re.match(pattern, item) and has_extracted_folder(item_path):
                     _file_results.append(
@@ -43,11 +51,6 @@ def get_things_to_delete() -> (
                     continue
                 if get_days_since_creation(item_path) > days_until_deletion:
                     _file_results.append((item_path, get_size_bytes(item_path), "age"))
-            elif os.path.isdir(item_path):
-                if get_days_since_creation(item_path) > days_until_deletion:
-                    _folder_results.append(
-                        (item_path, get_size_bytes(item_path), "age")
-                    )
 
     return _file_results, _folder_results
 
