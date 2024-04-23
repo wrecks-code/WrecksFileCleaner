@@ -82,7 +82,7 @@ def get_days_since_creation(path: str) -> int:
     elif os.path.isdir(path):
         creation_time = os.path.getctime(os.path.join(path, ""))
     else:
-        return 0  # Return 0 if the path is neither a file nor a folder
+        return 0
 
     creation_date = datetime.datetime.fromtimestamp(creation_time)
     current_date = datetime.datetime.now()
@@ -94,14 +94,14 @@ def has_extracted_folder(file_path: str) -> bool:
     return os.path.isdir(folder_path)
 
 
-def delete_file_or_folder(_path: str, _isfile: bool):
+def delete_file_or_folder(path: str, isfile: bool):
     if TESTMODE:
         return
     with contextlib.suppress(FileNotFoundError):
-        if _isfile:
-            os.remove(_path)
+        if isfile:
+            os.remove(path)
             return
-        shutil.rmtree(_path)
+        shutil.rmtree(path)
 
 
 def handle_startup() -> None:
@@ -138,6 +138,9 @@ def process_things():
 
     for items, is_file in ((folders_to_delete, False), (files_to_delete, True)):
         for path, size_bytes, reason in items:
+            if not os.path.exists(path):
+                continue
+
             basename = os.path.basename(path)
 
             if is_file:
