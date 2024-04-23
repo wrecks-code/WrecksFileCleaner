@@ -30,6 +30,7 @@ def get_things_to_delete() -> (
     for search_path in search_paths:
         if not os.path.exists(search_path):
             log(ERROR, f"Path {search_path} not found!")
+            continue
 
         for item in os.listdir(search_path):
             item_path = os.path.join(search_path, item)
