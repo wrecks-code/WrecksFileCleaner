@@ -9,7 +9,7 @@ Notification:
 
 | Before | After |
 | ------ | ----- |
-| ![Before](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/e2db839d-cbbf-4694-9cdf-4cf720d5f5c6) | ![After](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/37b0743c-4253-4e82-a3ac-b4441ecc10c2) |
+| ![Before](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/e2db839d-cbbf-4694-9cdf-4cf720d5f5c6) | ![After](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/f4e392f2-1f79-4a7c-a458-3490ef67f0b5) |
 
 
 ![image](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/5997b645-5c8a-47a1-8072-05eb0e0ff8c5)
