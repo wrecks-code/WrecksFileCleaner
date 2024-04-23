@@ -7,10 +7,19 @@ Notification:
 
 ## Example Folder and Log
 
-Before
-![image](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/8835faf1-1363-4bc0-bade-009c202d5450)
-After
-![image](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/fdfee35e-75c8-46f9-aad8-c381c664bbf2)
+<div style="display: flex; justify-content: center;">
+  <div style="text-align: center;">
+    Before
+    <br>
+    <img src="https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/8835faf1-1363-4bc0-bade-009c202d5450" alt="Before">
+  </div>
+  <div style="text-align: center;">
+    After
+    <br>
+    <img src="https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/fdfee35e-75c8-46f9-aad8-c381c664bbf2" alt="After">
+  </div>
+</div>
+
 
 
 
