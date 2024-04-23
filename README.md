@@ -5,9 +5,10 @@ Notification:
 
 <img width="546" alt="image" src="https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/37a0ceb5-61a8-499f-bd1e-a50d9f8d740d">
 
+## Example Folder and Log
 
+![image](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/8835faf1-1363-4bc0-bade-009c202d5450)
 
-Sample Log:
 
 ![image](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/5997b645-5c8a-47a1-8072-05eb0e0ff8c5)
 
