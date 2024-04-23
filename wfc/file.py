@@ -9,7 +9,7 @@ from wfc.logger import log, INFO
 from wfc import popup, config, registry, paths
 
 # TODO: Testmode toggle
-TESTMODE = False
+TESTMODE = True
 
 
 def get_things_to_delete() -> (
