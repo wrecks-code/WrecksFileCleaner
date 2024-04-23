@@ -19,7 +19,6 @@ Notification:
 ## Features
 
 - Automatically starts with Windows (configurable)
-- Cleans up specified paths based on defined rules in `config.ini`
 - Deletes duplicate .zip and .rar files if a folder with the same name exists
 - Removes files and folders older than a specified number of days
 - Generates a summary notification of the cleanup process
