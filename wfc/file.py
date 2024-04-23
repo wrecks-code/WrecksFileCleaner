@@ -8,7 +8,7 @@ from typing import List, Tuple
 from wfc.logger import log, INFO, ERROR
 from wfc import popup, config, registry, paths
 
-# TODO: Testmode toggle testgpcommit
+# TODO: Testmode toggle
 TESTMODE = True
 
 
