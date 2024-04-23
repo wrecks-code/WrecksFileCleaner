@@ -19,7 +19,7 @@ Notification:
 ## Features
 
 - Automatically starts with Windows (configurable)
-- Deletes duplicate .zip and .rar files if a folder with the same name exists
+- Deletes archive file types if a folder with the same name already exists in the same directory
 - Removes files and folders older than a specified number of days
 - Generates a summary notification of the cleanup process
 - Logs all deleted items for reference
