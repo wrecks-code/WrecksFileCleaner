@@ -12,10 +12,6 @@ from wfc import popup, config, registry, paths
 TESTMODE = True
 
 
-def test_function():
-    print("This is a test function")
-
-
 def get_things_to_delete() -> (
     Tuple[List[Tuple[str, float, str]], List[Tuple[str, float, str]]]
 ):
