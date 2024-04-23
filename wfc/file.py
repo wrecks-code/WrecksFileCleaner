@@ -8,8 +8,12 @@ from typing import List, Tuple
 from wfc.logger import log, INFO, ERROR
 from wfc import popup, config, registry, paths
 
-# TODO: Testmode toggle
+# TODO: Testmode toggle testgpcommit
 TESTMODE = True
+
+
+def test_function():
+    print("This is a test function")
 
 
 def get_things_to_delete() -> (
