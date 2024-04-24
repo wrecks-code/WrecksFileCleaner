@@ -5,8 +5,7 @@ import os
 import re
 from typing import List, Tuple
 
-from wfc.logger import log, INFO, ERROR
-from wfc import popup, config, registry, paths
+from wfc import popup, config, registry, paths, logger
 
 # TODO: Testmode toggle
 TESTMODE = True
@@ -29,7 +28,7 @@ def get_things_to_delete() -> (
 
     for search_path in search_paths:
         if not os.path.exists(search_path):
-            log(ERROR, f"Path {search_path} not found!")
+            logger.log(logger.ERROR, f"Path {search_path} not found!")
             continue
 
         for item in os.listdir(search_path):
@@ -113,7 +112,6 @@ def handle_startup() -> None:
         max_log_size_mb,
     ) = config.data
 
-    registry.remove_from_autostart()
     if start_with_windows:
         registry.add_to_autostart()
 
@@ -152,16 +150,19 @@ def process_things():
             else:
                 type_label = "DIR"
 
-            log(
-                INFO,
+            logger.log(
+                logger.INFO,
                 f"{type_label}: {basename} SIZE: {bytes_to_string(size_bytes)} REASON: {reason}",
             )
 
             bytes_to_delete += size_bytes
             delete_file_or_folder(path, is_file)
 
-    popup.show_notification(
-        f"Deleted {bytes_to_string(bytes_to_delete)} from your computer.",
-        f"{len(files_to_delete)} files and {len(folders_to_delete)} folders.\n"
-        + f"{amount_reason_unpacked} files already unpacked, {amount_reason_age} too old ({config.data[2]} days)",
-    )
+    if bytes_to_delete <= 0:
+        logger.show_summary()
+    else:
+        popup.show_notification(
+            f"Deleted {bytes_to_string(bytes_to_delete)} from your computer.",
+            f"{len(files_to_delete)} files and {len(folders_to_delete)} folders.\n"
+            + f"{amount_reason_unpacked} files already unpacked, {amount_reason_age} too old ({config.data[2]} days)",
+        )

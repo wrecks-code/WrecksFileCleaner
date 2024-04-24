@@ -21,9 +21,11 @@ APP_NAME = "WrecksFileCleaner"
 EXE_FILE_NAME = f"{APP_NAME}.exe"
 CONFIG_FILE_NAME = "config.ini"
 LOG_FILE_NAME = "wfc.log"
+ICON_FILE_NAME = "clean.ico"
 
 BASE_PATH = get_base_path()
 EXE_PATH = os.path.join(BASE_PATH, EXE_FILE_NAME)
 
 CONFIG_PATH = os.path.join(BASE_PATH, CONFIG_FILE_NAME)
 LOG_PATH = os.path.join(BASE_PATH, LOG_FILE_NAME)
+ICON_PATH = os.path.join(BASE_PATH, ICON_FILE_NAME)
