@@ -5,7 +5,7 @@ import os
 import re
 from typing import List, Tuple
 
-from wfc import popup, config, registry, paths, logger
+from wfc import notification, config, registry, paths, logger
 
 # TODO: Testmode toggle
 TESTMODE = True
@@ -163,8 +163,9 @@ def process_things():
     if bytes_to_delete == 0.0:
         logger.show_summary()
     else:
-        popup.show_notification(
+        notification.show_notification(
             f"Deleted {_bytes_to_string(bytes_to_delete)} from your computer.",
             f"{len(files_to_delete)} files and {len(folders_to_delete)} folders.\n"
             + f"{amount_reason_unpacked} files already unpacked, {amount_reason_age} too old ({config.data[2]} days)",
+            False,
         )

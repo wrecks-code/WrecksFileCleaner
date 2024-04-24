@@ -15,10 +15,14 @@ def _tray_clicked(button: dict):
         os.startfile("shell:RecycleBinFolder")
 
 
-def show_notification(title: str, message: str):
+def show_notification(title: str, message: str, summary: bool):
     time.sleep(1)
 
     icon = {"src": paths.ICON_PATH, "placement": "appLogoOverride"}
+    buttons = [LOG_BUTTON_TXT, RECYCLE_BIN_BUTTON_TXT]
+
+    if summary:
+        buttons.remove(RECYCLE_BIN_BUTTON_TXT)
 
     win11toast.toast(
         title,
@@ -26,6 +30,6 @@ def show_notification(title: str, message: str):
         audio={"silent": "true"},
         duration="long",
         on_click=lambda args: _tray_clicked(args),
-        buttons=[LOG_BUTTON_TXT, RECYCLE_BIN_BUTTON_TXT],
+        buttons=buttons,
         icon=icon,
     )

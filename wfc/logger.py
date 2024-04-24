@@ -2,7 +2,7 @@ import re
 from datetime import datetime
 import logging
 from typing import Tuple
-from wfc import paths, popup
+from wfc import notification, paths
 
 
 ENCODING = "utf-8"
@@ -38,9 +38,10 @@ def show_summary():
                 size_saved += float(size[:-3])
 
     size_saved /= 1024.0
-    popup.show_notification(
+    notification.show_notification(
         "There's nothing to delete!",
         f"You have saved {size_saved:.2f} GB in the last 30 days.",
+        True,
     )
 
 
