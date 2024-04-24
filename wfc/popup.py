@@ -7,7 +7,7 @@ LOG_BUTTON_TXT = "Open Log"
 RECYCLE_BIN_BUTTON_TXT = "Open Recycle Bin"
 
 
-def tray_clicked(button: dict):
+def _tray_clicked(button: dict):
     button_name_pressed = button["arguments"].split(":")[1].strip()
     if button_name_pressed == LOG_BUTTON_TXT:
         os.startfile(paths.LOG_PATH)
@@ -25,7 +25,7 @@ def show_notification(title: str, message: str):
         message,
         audio={"silent": "true"},
         duration="long",
-        on_click=lambda args: tray_clicked(args),
+        on_click=lambda args: _tray_clicked(args),
         buttons=[LOG_BUTTON_TXT, RECYCLE_BIN_BUTTON_TXT],
         icon=icon,
     )

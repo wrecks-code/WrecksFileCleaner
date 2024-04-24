@@ -11,7 +11,7 @@ from wfc import popup, config, registry, paths, logger
 TESTMODE = True
 
 
-def get_things_to_delete() -> (
+def _get_things_to_delete() -> (
     Tuple[List[Tuple[str, float, str]], List[Tuple[str, float, str]]]
 ):
     (
@@ -36,33 +36,33 @@ def get_things_to_delete() -> (
 
             if (
                 os.path.isdir(item_path)
-                and get_days_since_creation(item_path) > days_until_deletion
+                and _get_days_since_creation(item_path) > days_until_deletion
             ):
-                _folder_results.append((item_path, get_size_bytes(item_path), "age"))
+                _folder_results.append((item_path, _get_size_bytes(item_path), "age"))
             if os.path.isfile(item_path):
-                if re.match(pattern, item) and has_extracted_folder(item_path):
+                if re.match(pattern, item) and _has_extracted_folder(item_path):
                     _file_results.append(
                         (
                             item_path,
-                            get_size_bytes(item_path),
+                            _get_size_bytes(item_path),
                             "unpacked",
                         )
                     )
                     continue
-                if get_days_since_creation(item_path) > days_until_deletion:
-                    _file_results.append((item_path, get_size_bytes(item_path), "age"))
+                if _get_days_since_creation(item_path) > days_until_deletion:
+                    _file_results.append((item_path, _get_size_bytes(item_path), "age"))
 
     return _file_results, _folder_results
 
 
-def bytes_to_string(bytes_size: float) -> str:
+def _bytes_to_string(bytes_size: float) -> str:
     if bytes_size >= 1024**3:
         return f"{bytes_size / 1024**3:.2f} GB"
     else:
         return f"{bytes_size / 1024**2:.2f} MB"
 
 
-def get_size_bytes(path: str) -> float:
+def _get_size_bytes(path: str) -> float:
     return_size_bytes = 0
     if os.path.isfile(path):
         return_size_bytes = os.path.getsize(path)
@@ -75,7 +75,7 @@ def get_size_bytes(path: str) -> float:
     return return_size_bytes
 
 
-def get_days_since_creation(path: str) -> int:
+def _get_days_since_creation(path: str) -> int:
     if os.path.isfile(path):
         creation_time = os.path.getctime(path)
     elif os.path.isdir(path):
@@ -88,12 +88,12 @@ def get_days_since_creation(path: str) -> int:
     return (current_date - creation_date).days
 
 
-def has_extracted_folder(file_path: str) -> bool:
+def _has_extracted_folder(file_path: str) -> bool:
     folder_path = os.path.splitext(file_path)[0]
     return os.path.isdir(folder_path)
 
 
-def delete_file_or_folder(path: str, isfile: bool):
+def _delete_file_or_folder(path: str, isfile: bool):
     if TESTMODE:
         return
     with contextlib.suppress(FileNotFoundError):
@@ -103,7 +103,7 @@ def delete_file_or_folder(path: str, isfile: bool):
         shutil.rmtree(path)
 
 
-def handle_startup() -> None:
+def _handle_startup() -> None:
     (
         _,
         _,
@@ -114,6 +114,8 @@ def handle_startup() -> None:
 
     if start_with_windows:
         registry.add_to_autostart()
+    else:
+        registry.remove_from_autostart()
 
     max_log_size_bytes = max_log_size_mb * 1024 * 1024
     if (
@@ -125,9 +127,9 @@ def handle_startup() -> None:
 
 
 def process_things():
-    handle_startup()
+    _handle_startup()
 
-    things_to_delete = get_things_to_delete()
+    things_to_delete = _get_things_to_delete()
     files_to_delete, folders_to_delete = things_to_delete
 
     bytes_to_delete = 0
@@ -152,17 +154,17 @@ def process_things():
 
             logger.log(
                 logger.INFO,
-                f"{type_label}: {basename} SIZE: {bytes_to_string(size_bytes)} REASON: {reason}",
+                f"{type_label}: {basename} SIZE: {_bytes_to_string(size_bytes)} REASON: {reason}",
             )
 
             bytes_to_delete += size_bytes
-            delete_file_or_folder(path, is_file)
+            _delete_file_or_folder(path, is_file)
 
-    if bytes_to_delete <= 0:
+    if bytes_to_delete == 0.0:
         logger.show_summary()
     else:
         popup.show_notification(
-            f"Deleted {bytes_to_string(bytes_to_delete)} from your computer.",
+            f"Deleted {_bytes_to_string(bytes_to_delete)} from your computer.",
             f"{len(files_to_delete)} files and {len(folders_to_delete)} folders.\n"
             + f"{amount_reason_unpacked} files already unpacked, {amount_reason_age} too old ({config.data[2]} days)",
         )

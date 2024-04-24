@@ -29,7 +29,7 @@ def show_summary():
             if "Program startup" in line:
                 continue
 
-            timestamp, _, size, _ = extract_line_data(line)
+            timestamp, _, size, _ = _extract_line_data(line)
             if timestamp == "":
                 continue
             timestamp_datetime = datetime.strptime(timestamp, DATE_FORMAT)
@@ -44,7 +44,7 @@ def show_summary():
     )
 
 
-def extract_line_data(line) -> Tuple[str, str, str, str]:
+def _extract_line_data(line) -> Tuple[str, str, str, str]:
     # sourcery skip: extract-method, inline-variable, remove-unnecessary-else
     # Define regular expressions to match different parts of the log line
     timestamp_regex = r"(\d{2}\.\d{2}\.\d{4} \d{2}:\d{2}:\d{2})"

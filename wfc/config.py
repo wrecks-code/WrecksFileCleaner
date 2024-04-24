@@ -8,7 +8,7 @@ SECTION_NAME = "Settings"
 ENCODING = "utf-8"
 
 
-def get_config_values() -> Tuple[list[str], str, int, bool, int]:
+def _get_config_values() -> Tuple[list[str], str, int, bool, int]:
     if not os.path.exists(paths.CONFIG_PATH):
         logger.log(
             logger.ERROR,
@@ -19,10 +19,20 @@ def get_config_values() -> Tuple[list[str], str, int, bool, int]:
     config = configparser.ConfigParser()
     config.read(paths.CONFIG_PATH, encoding=ENCODING)
 
-    search_paths = config[SECTION_NAME]["SEARCH_PATHS"].split(",")
-    extractable_extensions = config[SECTION_NAME]["EXTRACTABLE_EXTENSIONS"]
+    search_paths = (
+        config[SECTION_NAME]["SEARCH_PATHS"]
+        .replace(" ", "")
+        .removesuffix(",")
+        .split(",")
+    )
+    extractable_extensions = (
+        config[SECTION_NAME]["EXTRACTABLE_EXTENSIONS"]
+        .replace(" ", "")
+        .removesuffix(",")
+        .replace(",", "|")
+    )
     days_until_deletion = int(config[SECTION_NAME]["DAYS_UNTIL_DELETION"])
-    start_with_windows = bool(config[SECTION_NAME]["START_WITH_WINDOWS"])
+    start_with_windows = config[SECTION_NAME]["START_WITH_WINDOWS"].lower() == "true"
     max_log_size_mb = int(config[SECTION_NAME]["MAX_LOG_SIZE_MB"])
 
     return (
@@ -34,4 +44,4 @@ def get_config_values() -> Tuple[list[str], str, int, bool, int]:
     )
 
 
-data = get_config_values()
+data = _get_config_values()
