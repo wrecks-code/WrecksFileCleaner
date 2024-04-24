@@ -9,11 +9,12 @@ A `wfc.log` is automatically created, clicking the notification opens your Recyc
 
 Clean Notification:
 
-![Untitled-1](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/ecfe3e31-5179-46b9-beb2-341efac7a499)
+![deletetion](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/edb167d7-e711-4469-89a9-9b5ec3575fb2)
+
 
 Summary Notification:
 
-![summary](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/8699eabc-7d19-407f-8244-b72496d7182b)
+![summary](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/da51103d-449e-4110-802c-2607385bf1e1)
 
 
 ## Example Folder and Log
