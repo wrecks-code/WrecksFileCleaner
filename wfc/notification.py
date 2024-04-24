@@ -3,26 +3,24 @@ import time
 import win11toast
 from wfc import paths
 
-LOG_BUTTON_TXT = "Open Log"
-RECYCLE_BIN_BUTTON_TXT = "Open Recycle Bin"
+LOG_BTN_TXT = "Open Log"
+DISMISS_BTN_TXT = "Dismiss"
 
 
 def _tray_clicked(button: dict):
     button_name_pressed = button["arguments"].split(":")[1].strip()
-    if button_name_pressed == LOG_BUTTON_TXT:
+    if button_name_pressed == LOG_BTN_TXT:
         os.startfile(paths.LOG_PATH)
-    elif button_name_pressed == RECYCLE_BIN_BUTTON_TXT:
-        os.startfile("shell:RecycleBinFolder")
+    elif button_name_pressed == DISMISS_BTN_TXT:
+        ...
+        # sys.exit(0)
 
 
-def show_notification(title: str, message: str, summary: bool):
+def show_notification(title: str, message: str):
     time.sleep(1)
 
     icon = {"src": paths.ICON_PATH, "placement": "appLogoOverride"}
-    buttons = [LOG_BUTTON_TXT, RECYCLE_BIN_BUTTON_TXT]
-
-    if summary:
-        buttons.remove(RECYCLE_BIN_BUTTON_TXT)
+    buttons = [LOG_BTN_TXT, DISMISS_BTN_TXT]
 
     win11toast.toast(
         title,

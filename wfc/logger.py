@@ -41,7 +41,6 @@ def show_summary():
     notification.show_notification(
         "There's nothing to delete!",
         f"You have saved {size_saved:.2f} GB in the last 30 days.",
-        True,
     )
 
 

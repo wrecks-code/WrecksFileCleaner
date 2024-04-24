@@ -167,5 +167,4 @@ def process_things():
             f"Deleted {_bytes_to_string(bytes_to_delete)} from your computer.",
             f"{len(files_to_delete)} files and {len(folders_to_delete)} folders.\n"
             + f"{amount_reason_unpacked} files already unpacked, {amount_reason_age} too old ({config.data[2]} days)",
-            False,
         )
