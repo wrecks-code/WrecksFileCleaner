@@ -23,7 +23,7 @@ def log(log_type: str, text: str):
 
 def show_summary():
     current_date = datetime.now()
-    size_saved = 0.0
+    size_saved_mb = 0.0
     with open(paths.LOG_PATH, "r", encoding=ENCODING) as log_file:
         for line in log_file:
             if "Program startup" in line:
@@ -35,43 +35,28 @@ def show_summary():
             timestamp_datetime = datetime.strptime(timestamp, DATE_FORMAT)
 
             if (current_date - timestamp_datetime).days <= 30:
-                size_saved += float(size[:-3])
+                size_saved_mb += float(size[:-3])  # Remove the unit (MB) before adding
 
-    size_saved /= 1024.0
+    size_saved_gb = size_saved_mb / 1024.0
     notification.show_notification(
         "There's nothing to delete!",
-        f"You have saved {size_saved:.2f} GB in the last 30 days.",
+        f"You have saved {size_saved_gb:.2f} GB in the last 30 days.",
     )
 
 
-def _extract_line_data(line) -> Tuple[str, str, str, str]:
-    # sourcery skip: extract-method, inline-variable, remove-unnecessary-else
-    # Define regular expressions to match different parts of the log line
-    timestamp_regex = r"(\d{2}\.\d{2}\.\d{4} \d{2}:\d{2}:\d{2})"
-    filename_regex = r"FILE: (.*?) SIZE:"
-    size_regex = r"SIZE: ([\d.]+) (.)B"
-    reason_regex = r"REASON: (.+)"
-
-    # Compile the regex patterns
-    timestamp_match = re.search(timestamp_regex, line)
-    filename_match = re.search(filename_regex, line)
-    size_match = re.search(size_regex, line)
-    reason_match = re.search(reason_regex, line)
-
-    # Check if all parts were matched
-    if timestamp_match and filename_match and size_match and reason_match:
-        timestamp = timestamp_match[1]
-        filename = filename_match[1]
-        # Convert size to float (assuming MB for demonstration)
-        size_value = float(size_match[1])
-        if size_match[2] == "G":
-            size_value *= 1024  # Convert to MB if size is in GB
-        size = f"{size_value:.2f} MB"
-        reason = reason_match[1]
-        return timestamp, filename, size, reason
-    else:
-        # print(f"LINE FORMAT INVALID! {filename_match}")
+def _extract_line_data(line: str) -> Tuple[str, str, str, str]:
+    filename_regex = r"(FILE|DIR): (.*?) SIZE: ([\d.]+) (GB|MB) REASON: (.+)"
+    if not (match := re.search(filename_regex, line)):
         return "", "", "", ""
+    timestamp = re.search(r"(\d{2}\.\d{2}\.\d{4} \d{2}:\d{2}:\d{2})", line)[1]
+    filetype = match[1]
+    size_value = float(match[3])
+    size_unit = match[4]
+    if size_unit == "GB":
+        size_value *= 1024  # Convert GB to MB
+    size = f"{size_value:.2f} MB"
+    reason = match[5]
+    return timestamp, filetype, size, reason
 
 
 if STARTUP:
