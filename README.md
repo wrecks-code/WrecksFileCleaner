@@ -7,12 +7,12 @@ WrecksFileCleaner is a Python application designed to automatically clean up you
 Download folders, Archive filetypes and the max age in days can be configured in `config.ini`<br>
 A `wfc.log` is automatically created, clicking the notification opens your Recycling Bin.
 
-Clean Notification:
+Clean Notification (when there's something to delete at startup):
 
 ![deletetion](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/edb167d7-e711-4469-89a9-9b5ec3575fb2)
 
 
-Summary Notification:
+Summary Notification (when there's nothing to delete at startup):
 
 ![summary](https://github.com/wrecks-code/WrecksFileCleaner/assets/29825723/da51103d-449e-4110-802c-2607385bf1e1)
 
