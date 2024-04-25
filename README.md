@@ -65,7 +65,3 @@ Summary Notification (when there's nothing to delete at startup):
 ## Contributing
 
 - Contributions are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request.
-
-## License
-
-- WrecksFileCleaner is licensed under the [MIT License](LICENSE).
