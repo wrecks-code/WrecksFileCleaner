@@ -1,6 +1,6 @@
 # WrecksFileCleaner
 
-WrecksFileCleaner is a Python application designed to automatically clean up your Downloads folder(s) by deleting 
+WrecksFileCleaner is a Python application designed to automatically clean up your Downloads folder(s) at Windows Startup by deleting 
    - every archive that has already been extracted in the same folder
    - files and folders older than a specified number of days (default is 14)
      
