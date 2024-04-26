@@ -5,7 +5,7 @@ WrecksFileCleaner is a Python application designed to automatically clean up you
    - files and folders older than a specified number of days (default is 14)
      
 Download folders, Archive filetypes and the max age in days can be configured in `config.ini`<br>
-A `wfc.log` is automatically created, clicking the notification opens your Recycling Bin.
+A `wfc.log` is automatically created, clicking the notification opens your the log.
 
 Clean Notification (when there's something to delete at startup):
 
