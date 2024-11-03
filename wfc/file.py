@@ -8,7 +8,7 @@ from typing import List, Tuple
 from wfc import notification, config, registry, paths, logger
 
 # TODO: Testmode toggle
-TESTMODE = True
+TESTMODE = False
 
 
 def _get_things_to_delete() -> (
@@ -122,7 +122,7 @@ def _handle_startup() -> None:
         os.path.exists(paths.LOG_PATH)
         and os.path.getsize(paths.LOG_PATH) > max_log_size_bytes
     ):
-        with open(paths.LOG_PATH, "w", encoding=config.ENCODING):
+        with open(paths.LOG_PATH, "w", encoding=config.ENCODING, errors="ignore"):
             pass
 
 
