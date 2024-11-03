@@ -24,7 +24,7 @@ def log(log_type: str, text: str):
 def show_summary():
     current_date = datetime.now()
     size_saved_mb = 0.0
-    with open(paths.LOG_PATH, "r", encoding=ENCODING) as log_file:
+    with open(paths.LOG_PATH, "r", encoding=ENCODING, errors="ignore") as log_file:
         for line in log_file:
             if "Program startup" in line:
                 continue
@@ -46,16 +46,29 @@ def show_summary():
 
 def _extract_line_data(line: str) -> Tuple[str, str, str, str]:
     filename_regex = r"(FILE|DIR): (.*?) SIZE: ([\d.]+) (GB|MB) REASON: (.+)"
-    if not (match := re.search(filename_regex, line)):
+
+    # Match the main filename pattern
+    match = re.search(filename_regex, line)
+    if not match:
         return "", "", "", ""
-    timestamp = re.search(r"(\d{2}\.\d{2}\.\d{4} \d{2}:\d{2}:\d{2})", line)[1]
+
+    # Match the timestamp pattern
+    timestamp_match = re.search(r"(\d{2}\.\d{2}\.\d{4} \d{2}:\d{2}:\d{2})", line)
+    timestamp = (
+        timestamp_match[1] if timestamp_match else ""
+    )  # Check if timestamp was found
+
     filetype = match[1]
     size_value = float(match[3])
     size_unit = match[4]
+
+    # Convert GB to MB if necessary
     if size_unit == "GB":
         size_value *= 1024  # Convert GB to MB
+
     size = f"{size_value:.2f} MB"
     reason = match[5]
+
     return timestamp, filetype, size, reason
 
 
